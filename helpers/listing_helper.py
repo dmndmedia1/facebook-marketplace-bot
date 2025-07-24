@@ -42,19 +42,8 @@ def remove_listing(data, listing_type, scraper) :
 	scraper.element_wait_to_be_invisible('div[aria-label="Your Listing"]')
 
 def publish_listing(data, listing_type, scraper):
-	create_listing_button_selector = 'div[aria-label="Marketplace sidebar"] a[aria-label="Create new listing"]'
-	create_listing_button = scraper.find_element(create_listing_button_selector, False, 20)
-
-	if create_listing_button:
-		# Click on create new listing button
-		scraper.element_click(create_listing_button_selector)
-	else:
-		# Refresh marketplace selling page
-		scraper.go_to_page('https://facebook.com/marketplace/you/selling')
-		scraper.element_click(create_listing_button_selector)
-
 	# Choose listing type
-	scraper.element_click('a[href="/marketplace/create/' + listing_type + '/"]')
+	scraper.go_to_page('https://facebook.com/marketplace/create/' + listing_type)
 
 	# Create string that contains all of the image paths separeted by \n
 	images_path = generate_multiple_images_path(data['Photos Folder'], data['Photos Names'])
